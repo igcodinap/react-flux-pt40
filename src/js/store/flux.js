@@ -11,7 +11,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 					title: "SECOND",
 					background: "white",
 					initial: "white"
+				},
+				{
+					title: "THIRD",
+					background: "white",
+					initial: "white"
 				}
+			],
+			starWarsCharacters: [
+				{}
+			],
+			todos: [],
+			medicineInventary: [
+				
 			]
 		},
 		actions: {
@@ -19,10 +31,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
-			loadSomeData: () => {
+			loadSomeData: async () => {
 				/**
 					fetch().then().then(data => setStore({ "foo": data.bar }))
 				*/
+				try {
+					const response = await fetch("https://swapi.dev/api/people/");
+					if (!response.ok) {
+					  throw new Error("Network response was not ok");
+					}
+					const data = await response.json();
+					console.log(data)
+					setStore({ starWarsCharacters: data });
+				  } catch (error) {
+					console.error("There was a problem fetching the data:", error);
+				  }
 			},
 			changeColor: (index, color) => {
 				//get the store
@@ -36,6 +59,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 
 				//reset the global store
+				setStore({ demo: demo });
+			},
+			addToDemo: (title, background, initial) => {
+				const store = getStore();
+				const demo = store.demo.concat({title: title, background: background, initial: initial});
 				setStore({ demo: demo });
 			}
 		}
