@@ -6,13 +6,14 @@ import { Context } from "../store/appContext";
 import "../../styles/demo.css";
 
 export const Demo = () => {
-	const { store, actions } = useContext(Context);
+	const { store, actions } = useContext(Context); // {store: {}, actions: {}}
 
 	useEffect(() => {
 		actions.addToDemo('forth', 'blue', 'red');
 	}, []);
 
-	console.log(store.starWarsCharacters, '<-----SW CHARS')
+	// console.log(store.starWarsCharacters, '<-----SW CHARS')
+	console.log(store.demo, '<-----DEMO')
 	return (
 		<div className="container">
 			<ul className="list-group">

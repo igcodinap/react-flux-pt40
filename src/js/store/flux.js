@@ -1,5 +1,6 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
+		// guardamos informacion en el store. si esta se cambia, se renderizan los componentes que la usan
 		store: {
 			demo: [
 				{
@@ -18,12 +19,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			starWarsCharacters: [
-				{}
-			],
-			todos: [],
-			medicineInventary: [
-				
+			user: {
+				email: '',
+				username: ''
+			},
+			colours: [
+				"white",
+				"red",
+				"orange",
+				"yellow"
 			]
 		},
 		actions: {
@@ -65,7 +69,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				const demo = store.demo.concat({title: title, background: background, initial: initial});
 				setStore({ demo: demo });
-			}
+			},
+			loginUser: (email, username) => {
+				const store = getStore();
+				const user = {email: email, username: username};
+				setStore({ user: user });
+			},
 		}
 	};
 };
