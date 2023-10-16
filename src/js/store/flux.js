@@ -17,21 +17,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					title: "THIRD",
 					background: "white",
 					initial: "white"
-				}
+				},
+				// {
+				// 	title: "FOURTH",
+				// 	background: "blue",
+				// 	initial: "red"
+				// }
 			],
-			user: {
-				email: '',
-				username: ''
-			},
-			colours: [
-				"white",
-				"red",
-				"orange",
-				"yellow"
-			]
+			userName: '',
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
+			editUserName: (name) => {
+				setStore({ userName: name });
+			},
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
@@ -53,28 +52,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			changeColor: (index, color) => {
 				//get the store
-				const store = getStore();
+				const store = getStore(); // {demo: [...], user: {...}, colours: [...] }
 
 				//we have to loop the entire demo array to look for the respective index
 				//and change its color
-				const demo = store.demo.map((elm, i) => {
+				const papasFritas = store.demo.map((elm, i) => {
 					if (i === index) elm.background = color;
 					return elm;
-				});
+				}); //0 [{title: 'first', background: 'ORANGE'}, {title: 'second', background: 'white'}, {title: 'third', background: 'white'}]
 
 				//reset the global store
-				setStore({ demo: demo });
+				setStore({ demo: papasFritas });
 			},
 			addToDemo: (title, background, initial) => {
-				const store = getStore();
+				const store = getStore(); // {demo: [...], user: {...}, colours: [...] }
 				const demo = store.demo.concat({title: title, background: background, initial: initial});
 				setStore({ demo: demo });
+			},
+			removeFromDemo: (index) => {
+				const store = getStore(); 
+				const newDemo = store.demo.filter((elm, i) => i !== index);
+				setStore({ demo: newDemo });
 			},
 			loginUser: (email, username) => {
 				const store = getStore();
 				const user = {email: email, username: username};
 				setStore({ user: user });
 			},
+
 		}
 	};
 };
